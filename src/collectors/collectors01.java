@@ -1,7 +1,5 @@
 package collectors;
 
-import streams.streams02;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
