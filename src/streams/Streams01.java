@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class streams01 {
+public class Streams01 {
     public static void main(String[] args) {
 
         List<Receta> recetario = new ArrayList<>();

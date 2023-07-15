@@ -1,9 +1,9 @@
-package streams;
+package collectors;
 
-import javax.swing.text.html.Option;
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class streams02 {
+public class Collectors01 {
     public static void main(String[] args) {
 
         List<Receta> recetario = new ArrayList<>();
@@ -27,17 +27,30 @@ public class streams02 {
 
         //filter filtran las recetas que tienen un número de horas mayor a 3
         //findFirst se usa para encontrar el primer elemento que cumple con la condición del filtro
-        Optional<Receta> optionalReceta = recetario.stream().filter(x -> x.getHoras() > 3).findFirst();
+        //Optional<Receta> optionalReceta = recetario.stream().filter(x -> x.getHoras() > 3).findFirst();
+
+        /*if (optionalReceta.isPresent()) {
+            System.out.println(optionalReceta.get().getNombre());
+        }*/
+
 
         System.out.println(suma);
         System.out.println(max.getAsInt());
         System.out.println(validaTodos);
 
-        if (optionalReceta.isPresent()){
-            System.out.println(optionalReceta.get().getNombre());
-        }
+        //filtra las recetas y encuentra la primera que cumple con la condición
+        //ifPresent se usa para imprimir la receta encontrada (se usa reference)
+        recetario.stream().filter(x -> x.getHoras() > 2).findFirst().ifPresent(System.out::println);
 
+        //si no se encuentra ninguna receta que cumpla con la condición
+        // se devuelve una nueva instancia de Receta con el nombre "no existe" y 0 horas
+        Receta receta = recetario.stream().filter(x -> x.getHoras() > 5).findFirst().orElse(new Receta("no existe", 0));
+        System.out.println(receta);
 
+        //se recopila las recetas filtradas en una nueva lista
+        List<Receta> recetaList = recetario.stream().filter(x -> x.getHoras() > 3).collect(Collectors.toList());
+        //se itera sobre cada receta e imprime
+        recetaList.forEach(System.out::println);
     }
 
     static class Receta {
@@ -56,5 +69,11 @@ public class streams02 {
         public int getHoras() {
             return horas;
         }
+
+        @Override
+        public String toString() {
+            return this.nombre.concat(" - ").concat(String.valueOf(this.getHoras()));
+        }
     }
+
 }
