@@ -43,7 +43,6 @@ public class Streams05 {
                 .limit(3)
                 .map(Curso::getTitulo)
                 .forEach(System.out::println);
-
     }
 }
 
